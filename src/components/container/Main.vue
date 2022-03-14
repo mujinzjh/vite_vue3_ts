@@ -1,0 +1,31 @@
+<!--
+ * @Author: mujin
+ * @Date: 2022-03-14 16:51:19
+ * @LastEditTime: 2022-03-14 16:54:25
+ * @Description: 
+-->
+<template>
+  <main class="el-main">
+    <slot />
+  </main>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'ElMain',
+}
+</script>
+<script setup lang="ts">
+</script>
+
+<style lang="scss">
+@import '../../styles/mixin.scss';
+@include b(main) {
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: $--main-padding;
+}
+</style>
