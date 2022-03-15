@@ -1,7 +1,7 @@
 <!--
  * @Author: mujin
  * @Date: 2022-03-14 10:01:06
- * @LastEditTime: 2022-03-14 17:19:53
+ * @LastEditTime: 2022-03-15 10:41:00
  * @Description: 
 -->
 <script setup lang="ts">
@@ -9,6 +9,10 @@
 
 <template>
   <div>
+    <el-button
+      size="large"
+      type="success"
+    >ceshi</el-button>
     <el-container>
       <el-header>Header</el-header>
       <el-aside width="200px">
