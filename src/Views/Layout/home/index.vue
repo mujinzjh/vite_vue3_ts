@@ -7,9 +7,14 @@
         @headerChange="changeCollapsed"
       ></Header>
       <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
-        <transition>
-          <router-view></router-view>
-        </transition>
+        <router-view v-slot="{ Component }">
+          <transition
+            name="content"
+            mode="out-in"
+          >
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </a-layout-content>
     </a-layout>
   </a-layout>

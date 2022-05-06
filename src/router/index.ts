@@ -3,11 +3,31 @@ import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home/component1'
+  },
+  {
+    path: '/login',
+    component: () => import('@/Views/Login/login.vue'),
   },
   {
     path: '/home',
-    component: () => import('@/Views/Layout/home/index.vue')
+    component: () => import('@/Views/Layout/home/index.vue'),
+    children: [
+      {
+        path: '/home/component1',
+        meta: {
+          title: '组件一',
+        },
+        component: () => import('@/Views/Page/component1/index.vue'),
+      },
+      {
+        path: '/home/component2',
+        meta: {
+          title: '组件二',
+        },
+        component: () => import('@/Views/Page/component2/index.vue'),
+      }
+    ]
   }
 ];
 
