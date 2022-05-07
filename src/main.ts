@@ -3,7 +3,7 @@ import App from './App.vue'
 import vueRoutes from '@/router/index';
 import Antd from 'ant-design-vue';
 import '@/style/common.scss';
-import 'ant-design-vue/dist/antd.css';
+import '@/style/main.less';
 
 
 const app = createApp(App);

@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home/component1'
+    redirect: '/login'
   },
   {
     path: '/login',
@@ -12,6 +12,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/home',
     component: () => import('@/Views/Layout/home/index.vue'),
+    name: 'home',
+    redirect: '/home/component1',
     children: [
       {
         path: '/home/component1',
