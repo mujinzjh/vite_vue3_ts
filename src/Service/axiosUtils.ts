@@ -74,7 +74,7 @@ const isParamsValid = (params: any) => {
   return Boolean(params.method && params.url);
 };
 
-function axiosHttpUtils(opts: { baseURL: any; }, data: any) {
+function axiosHttpUtils(opts: any, data: any) {
   let baseURL = opts.baseURL || Constants.BASE_URL, promise;
   const httpDefaultOpts = handleOptions(opts, baseURL, data);
 
@@ -84,10 +84,12 @@ function axiosHttpUtils(opts: { baseURL: any; }, data: any) {
     }
     axios(httpDefaultOpts).then(response => {
       const res = response.data;
+      const { status } = response;
+
       if (res.code == 401) {
         EventBus.publish('logout');
       } else {
-        resolve(res);
+        resolve({ status, data: { ...res } });
       }
     }).catch(err => {
       reject(err);

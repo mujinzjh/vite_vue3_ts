@@ -10,11 +10,11 @@
         @finishFailed="onFinishFailed"
       >
         <a-form-item
-          name="username"
+          name="account"
           class="form-content-item"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
+          :rules="[{ required: true, message: 'Please input your account!',trigger: 'blur' }]"
         >
-          <a-input v-model:value="formState.username">
+          <a-input v-model:value="formState.account">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
@@ -24,7 +24,7 @@
         <a-form-item
           name="password"
           class="form-content-item"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
+          :rules="[{ required: true, message: 'Please input your password!',trigger: 'blur' }]"
         >
           <a-input-password
             v-model:value="formState.password"
@@ -55,8 +55,12 @@ import { defineComponent, reactive, computed } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import Main from './main.vue'
 import { useRouter } from 'vue-router'
+import axiosHttpUtils from '@/Service/axiosUtils'
+import { message } from 'ant-design-vue'
+import API from '@/API/api.js'
+import Constants from '../../Constants'
 interface FormState {
-  username: string
+  account: string
   password: string
 }
 export default defineComponent({
@@ -68,21 +72,39 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const formState = reactive<FormState>({
-      username: '',
+      account: '',
       password: '',
     })
     const onFinish = (values: any) => {
       console.log('Success:', values)
-      router.push({
-        name: 'home',
-      })
+      axiosHttpUtils(API.loginApi, values)
+        .then((res: any) => {
+          console.log(res)
+
+          if (res.status == Constants.HTTP_SUCCESS_CODE) {
+            sessionStorage.setItem('token', res.data.result.token)
+            sessionStorage.setItem('menu', JSON.stringify(res.data.result.menu))
+            sessionStorage.setItem(
+              'userInfo',
+              JSON.stringify(res.data.result.user)
+            )
+            router.push({
+              name: 'home',
+            })
+          } else {
+            message.error('用户名或密码错误')
+          }
+        })
+        .catch((err: any) => {
+          console.log(err)
+        })
     }
 
     const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo)
     }
     const disabled = computed(() => {
-      return !(formState.username && formState.password)
+      return !(formState.account && formState.password)
     })
     return {
       labelCol: { style: { width: '120px' } },

@@ -10,8 +10,7 @@
                     min-w-0
                     bg-white
                 ">
-      <div
-        class="
+      <div class="login-bg
                         sm:w-1/2
                         xl:w-3/5
                         h-full
@@ -26,9 +25,7 @@
                         text-white
                         bg-no-repeat bg-cover
                         relative
-                    "
-        style="background-image: url(img.jpg)"
-      >
+                    ">
         <div class="
                             absolute
                             bg-gradient-to-b
@@ -40,7 +37,7 @@
                         "></div>
         <div class="w-full max-w-md z-10">
           <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">欢迎光临</div>
-          <div class="sm:text-sm xl:text-md text-gray-200 font-normal">欢迎来到好玩俱乐部，在这里和志同道合的朋友一起分享有趣的故事，一起组织有趣的活动...</div>
+          <div class="sm:text-sm xl:text-md text-gray-200 font-normal">欢迎来到博客管理中心...</div>
         </div>
         <ul class="circles">
           <li></li>
@@ -71,7 +68,7 @@
                     ">
         <div class="max-w-md w-full mx-auto space-y-8">
           <div class="text-center">
-            <h2 class="mt-6 text-3xl font-bold text-gray-900">欢迎回来</h2>
+            <h2 class="mt-6 text-3xl font-bold text-gray-900">博客管理中心</h2>
           </div>
           <div class="flex flex-row justify-center items-center space-x-3">
           </div>
@@ -93,6 +90,9 @@ export default defineComponent({
 
 <style scoped>
 @import '../../assets/login/tailwind.min.css';
+.login-bg {
+  background-image: url('../../assets/login/login.jpg');
+}
 .circles {
   position: absolute;
   top: 0;

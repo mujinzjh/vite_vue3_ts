@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from "vue-router";
-
+import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized, Router, RouteRecordRaw } from "vue-router";
+const Login = () => import('@/Views/Login/login.vue');
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -7,27 +7,43 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    component: () => import('@/Views/Login/login.vue'),
+    name: 'login',
+    component: Login
   },
   {
-    path: '/home',
+    path: '/index',
     component: () => import('@/Views/Layout/home/index.vue'),
     name: 'home',
-    redirect: '/home/component1',
+    redirect: '/home',
     children: [
       {
-        path: '/home/component1',
+        path: '/home',
         meta: {
-          title: '组件一',
+          title: '首页',
         },
-        component: () => import('@/Views/Page/component1/index.vue'),
+        component: () => import('@/Views/Page/home/index.vue'),
       },
       {
-        path: '/home/component2',
-        meta: {
-          title: '组件二',
-        },
-        component: () => import('@/Views/Page/component2/index.vue'),
+        path: '/systemManager',
+        component: () => import('@/Views/Page/systemManager/index.vue'),
+        children: [
+          {
+            path: '/systemManager/userManager',
+            component: () => import('@/Views/Page/systemManager/userManager.vue'),
+          },
+          {
+            path: '/systemManager/roleManager',
+            component: () => import('@/Views/Page/systemManager/roleManager.vue'),
+          }
+        ],
+      },
+      {
+        path: '/logManager/operationManager',
+        component: () => import('@/Views/Page/logManager/operationLog.vue'),
+      },
+      {
+        path: '/logManager/loginLog',
+        component: () => import('@/Views/Page/logManager/loginLog.vue'),
       }
     ]
   }
@@ -36,6 +52,48 @@ const routes: RouteRecordRaw[] = [
 const router: Router = createRouter({
   history: createWebHashHistory(),
   routes: routes
+});
+
+
+const LOGIN_PAGE = 'login';
+const toMenuList = () => {
+  const menu = sessionStorage.getItem('menu');
+  const menuList: any[] = menu && Object.values(JSON.parse(menu)) || [];
+  const result: Array<RouteRecordRaw> = [];
+
+  for (let i = 0; i < menuList.length; i++) {
+    result.push(menuList[i]);
+    if (menuList[i].children && menuList[i].children.length) {
+      for (let j = 0; j < menuList[i].children.length; j++) {
+        result.push(menuList[i].children[j]);
+      }
+    }
+  }
+  return result;
+}
+const isHasAccess = function (path: string) {
+  const menuList: Array<RouteRecordRaw> = toMenuList();
+  let result = false;
+  for (let i = 0; i < menuList.length; i++) {
+    if (path == menuList[i].path) {
+      result = true;
+      break;
+    }
+  }
+  return result;
+}
+router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  const token = sessionStorage.getItem('token');
+
+  if (!token && to.name !== 'login') {
+    next({ name: LOGIN_PAGE });
+  }
+  else if (to.name == 'login' || isHasAccess(to.path)) {
+    next();
+  }
+  else {
+    next({ name: LOGIN_PAGE });
+  }
 });
 
 export default router;
