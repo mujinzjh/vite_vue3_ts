@@ -38,7 +38,9 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons-vue'
 import type { MenuProps } from 'ant-design-vue'
-
+import { EventBus } from '../../../Emit'
+import { Router, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 export default defineComponent({
   components: {
     DownOutlined,
@@ -47,8 +49,15 @@ export default defineComponent({
     LogoutOutlined,
   },
   setup() {
+    let router: Router = useRouter()
+    const store = useStore()
+    const loginOut = () => {
+      store.dispatch('logOut', router)
+    }
     const onClick: MenuProps['onClick'] = ({ key }) => {
-      console.log(`Click on item ${key}`)
+      if (key == 2) {
+        loginOut()
+      }
     }
     const userInfo = () => {
       const user = sessionStorage.getItem('userInfo')
@@ -57,6 +66,7 @@ export default defineComponent({
     return {
       onClick,
       userInfo,
+      router,
     }
   },
 })

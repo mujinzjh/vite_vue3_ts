@@ -97,8 +97,6 @@ export default defineComponent({
   mounted() {
     const menu: string | null = sessionStorage.getItem('menu')
     this.menuList = menu && JSON.parse(menu)
-    console.log(this.menuList)
-
     this.selectedKeys.push(this.router.currentRoute.value.fullPath)
   },
   methods: {

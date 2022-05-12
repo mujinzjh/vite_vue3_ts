@@ -3,7 +3,7 @@ import mitt from 'mitt';
 const EventVue = mitt();
 
 // 发布事件
-const publish = (event, args) => {
+const publish = (event, args?: any) => {
   EventVue.emit(event, args);
 }
 

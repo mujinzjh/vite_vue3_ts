@@ -1,14 +1,40 @@
 #app {
+  #home_page {
+    .content-container {
+      height: 100vh;
+    }
+  }
+
   .ant-layout {
-    min-height: 100vh;
+
+    height: 100%;
+    overflow: auto;
+
+    .ant-layout-sider {
+      // height: 100%;
+    }
+
+    .ant-layout-content {
+      display: inline-block;
+
+      .wrap-content {
+        background: #fff;
+        padding: 10px;
+        min-height: calc(100vh - 112px),
+      }
+    }
   }
 
   .content-enter-from,
   .content-leave-to {
     transform: translateX(30px);
     opacity: 0;
-
   }
+
+  // .content-leave-to,
+  // .content-enter-to {
+  //   overflow: hidden;
+  // }
 
   .content-enter-to,
   .content-leave-from {
@@ -17,6 +43,7 @@
 
   .content-enter-active,
   .content-leave-active {
+    // overflow: hidden;
     transition: all .6s ease;
   }
 }

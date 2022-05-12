@@ -1,19 +1,27 @@
 <template>
   <a-layout id="home_page">
     <Aside :collapsed="collapsed"></Aside>
-    <a-layout>
+    <a-layout class="content-container">
       <Header
         :collapsed="collapsed"
         @headerChange="changeCollapsed"
       ></Header>
-      <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
+
+      <a-layout-content :style="{padding: '24px', background: '#e2e2e2', overflow:'auto' }">
         <router-view v-slot="{ Component }">
-          <transition
-            name="content"
-            mode="out-in"
+          <div
+            style="overflow:hidden"
+            class="wrap-content"
           >
-            <component :is="Component" />
-          </transition>
+            <transition
+              name="
+            content"
+              mode="out-in"
+            >
+              <component :is="Component" />
+            </transition>
+          </div>
+
         </router-view>
       </a-layout-content>
     </a-layout>

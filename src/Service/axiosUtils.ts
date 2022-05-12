@@ -4,12 +4,12 @@
  * @LastEditTime: 2021-11-13 17:37:13
  * @Description:
  */
-import vue from 'vue';
 import axios from 'axios';
 import Constants from '@/Constants';
-import { EventBus } from '../Emit';
 import qs from 'qs';
 import { httpDefaultOptsInterface } from '../interface';
+import router from '../router';
+import store from '../store';
 
 axios.interceptors.request.use((config: any) => {
   const token = sessionStorage.getItem('token');
@@ -24,6 +24,11 @@ axios.interceptors.request.use((config: any) => {
 axios.interceptors.response.use(res => {
   return res;
 }, err => {
+  const errorInfo = err.response;
+  let { data, status } = errorInfo;
+  if (status == 450 || status == 401) {
+    return { data, status };
+  }
   return Promise.reject(err);
 });
 
@@ -74,7 +79,7 @@ const isParamsValid = (params: any) => {
   return Boolean(params.method && params.url);
 };
 
-function axiosHttpUtils(opts: any, data: any) {
+function axiosHttpUtils(opts: any, data?: any) {
   let baseURL = opts.baseURL || Constants.BASE_URL, promise;
   const httpDefaultOpts = handleOptions(opts, baseURL, data);
 
@@ -85,13 +90,16 @@ function axiosHttpUtils(opts: any, data: any) {
     axios(httpDefaultOpts).then(response => {
       const res = response.data;
       const { status } = response;
-
       if (res.code == 401) {
-        EventBus.publish('logout');
+        // store.dispatch('logOut', router);
+        router.push('/login');
+        sessionStorage.clear();
+        return;
       } else {
         resolve({ status, data: { ...res } });
       }
     }).catch(err => {
+
       reject(err);
     });
   });

@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized, Router, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, NavigationFailure, NavigationGuardNext, RouteLocationNormalized, Router, RouteRecordRaw } from "vue-router";
+import NProgress from 'nprogress';
+
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false });
+
 const Login = () => import('@/Views/Login/login.vue');
 const routes: RouteRecordRaw[] = [
   {
@@ -83,6 +87,7 @@ const isHasAccess = function (path: string) {
   return result;
 }
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  NProgress.start();
   const token = sessionStorage.getItem('token');
 
   if (!token && to.name !== 'login') {
@@ -95,5 +100,7 @@ router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, n
     next({ name: LOGIN_PAGE });
   }
 });
-
+router.afterEach(() => {
+  NProgress.done();
+})
 export default router;
