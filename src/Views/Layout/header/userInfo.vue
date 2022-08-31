@@ -40,7 +40,7 @@ import {
 import type { MenuProps } from 'ant-design-vue'
 import { EventBus } from '../../../Emit'
 import { Router, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useMainStore } from '@/store/index';
 export default defineComponent({
   components: {
     DownOutlined,
@@ -50,9 +50,9 @@ export default defineComponent({
   },
   setup() {
     let router: Router = useRouter()
-    const store = useStore()
+    const store = useMainStore()
     const loginOut = () => {
-      store.dispatch('logOut', router)
+      // store.dispatch('logOut', router)
     }
     const onClick: MenuProps['onClick'] = ({ key }) => {
       if (key == 2) {
