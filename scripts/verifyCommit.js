@@ -10,6 +10,8 @@ const msg = require('fs')
   .trim()
 
 const commitRE = /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?:.{1,50}/
+console.log('mergeRe', mergeRe)
+console.log('msg', msg);
 if (!commitRE.test(msg)) {
   if (!mergeRe.test(msg)) {
     console.log(msg);
