@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "preview":"husky install",
     "lint": "eslint --fix --ext .js,vue src/"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.3",
     "babel-eslint": "^10.1.0",
+    "husky": "^8.0.1",
     "nprogress": "^0.2.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15"

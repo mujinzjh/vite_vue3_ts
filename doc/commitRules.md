@@ -1,9 +1,3 @@
-<!--
- * @Author: mujin
- * @Date: 2022-03-14 11:47:02
- * @LastEditTime: 2022-03-14 11:47:03
- * @Description: git commit 的提交规则
--->
 feat: 新功能
 fix: 修改 bug
 docs: 文档
