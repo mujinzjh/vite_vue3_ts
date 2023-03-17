@@ -27,8 +27,14 @@ export const data = {
   "excerpt": "",
   "headers": [],
   "git": {
-    "updatedTime": null,
-    "contributors": []
+    "updatedTime": 1647393092000,
+    "contributors": [
+      {
+        "name": "木槿-年华",
+        "email": "1161223922@qq.com",
+        "commits": 1
+      }
+    ]
   },
   "filePathRelative": "README.md"
 }
