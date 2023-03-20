@@ -10,9 +10,6 @@
           </Transition>
           
         </router-view>
-        <!-- <Transition name="fade" mode="out-in" appear>
-          <router-view></router-view>
-        </Transition> -->
       </a-layout-content>
       <MJFooter v-if="isUseFooter" />
     </a-layout>

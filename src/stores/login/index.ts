@@ -2,7 +2,7 @@
  * @Author: zhaojianhua
  * @Description: 
  * @Date: 2023-03-02 15:08:19
- * @LastEditTime: 2023-03-16 10:48:12
+ * @LastEditTime: 2023-03-17 17:24:42
  * @FilePath: /vite_vue3_ts/src/stores/login/index.ts
  */
 import { defineStore, StoreDefinition } from "pinia";
@@ -33,5 +33,16 @@ export const useMain: StoreDefinition = defineStore('Main',()=>{
   };
   return {
     count, increment
+  }
+});
+
+export const useToken = defineStore('Token',()=>{
+  const token = ref('');
+  const saveToken = (value:string)=>{
+    token.value = value;
+    sessionStorage.setItem('token', value);
+  };
+  return {
+    token, saveToken
   }
 });

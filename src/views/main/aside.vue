@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { createIcon as CreateIcon } from "@/hooks/createIcon";
+import { createIcon as CreateIcon } from "@/components/createIcon";
 import { Component, reactive } from "vue";
 import { useRouter } from "vue-router";
 
